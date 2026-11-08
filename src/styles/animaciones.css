@@ -1,0 +1,23 @@
+/* ---------- Sendero en S ----------
+   La franja clara se dibuja a medida que se baja por la página (solo CSS).
+   Sin soporte de animación por scroll, el sendero aparece completo.
+   Ojo: `animation-timeline` va en un selector distinto al shorthand `animation`,
+   porque el shorthand lo reinicia y el minificador fusionaría ambas reglas. */
+.sendero-franja { stroke-dasharray: var(--largo, 0) var(--largo, 0); }
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sendero-franja { stroke-dashoffset: var(--largo, 0); animation: dibujar-sendero linear both; }
+    svg .sendero-franja { animation-timeline: scroll(root); animation-range: 0% 80%; }
+  }
+}
+@keyframes dibujar-sendero { to { stroke-dashoffset: 0; } }
+
+/* Aparición suave de cada hito al entrar en pantalla. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .aparece { animation: aparecer linear both; }
+    section.aparece { animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  }
+}
+@keyframes aparecer { from { opacity: 0; transform: translateY(24px); } }

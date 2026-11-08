@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import type { Cabana } from '../data/cabanas';
+import { precioDesde } from '../data/cabanas';
+import { AVES, FOTOS_CABANA } from '../data/imagenes';
+import { formatoPesos } from '../lib/reserva';
+
+interface Props { cabana: Cabana }
+const { cabana } = Astro.props;
+const ave = AVES[cabana.slug];
+const foto = FOTOS_CABANA[cabana.slug]?.[0];
+const varias = cabana.tarifas.length > 1;
+---
+<article
+  class="group/ficha flex flex-col gap-3 rounded-2xl border border-borde bg-arena p-4.5 transition-[opacity,background-color,border-color] has-checked:border-2 has-checked:border-terracota has-checked:bg-papel-claro data-[fuera]:opacity-50"
+  data-cabana={cabana.slug}
+  data-capacidad={cabana.capacidad}
+>
+  {foto ? (
+    <Image src={foto} alt={`Cabaña ${cabana.nombre}`} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/10] w-full rounded-xl object-cover" />
+  ) : (
+    <div class="flex aspect-[16/10] items-center justify-center rounded-xl bg-[#EFE8DA] text-[13px] text-suave">Foto de la cabaña</div>
+  )}
+  <div class="flex items-end justify-between gap-2">
+    <div>
+      <h3 class="font-display text-[32px] font-semibold leading-none">{cabana.nombre}</h3>
+      <p class="mt-1 text-[13px] text-suave">
+        {cabana.capacidadTexto}{cabana.accesoUniversal && ' · acceso universal'}
+      </p>
+    </div>
+    {ave ? (
+      <Image src={ave} alt="" width={160} class="h-16 w-auto max-w-24 object-contain" />
+    ) : (
+      <span aria-hidden="true" class="size-16 rounded-full border border-dashed border-oro"></span>
+    )}
+  </div>
+  <p class="text-sm text-texto">{cabana.resumen}</p>
+  <p class="text-sm text-texto">
+    {varias && 'desde '}<strong class="text-[19px] text-tinta">{formatoPesos(precioDesde(cabana))}</strong> / noche
+  </p>
+  <div class="mt-auto flex flex-wrap items-center gap-2">
+    <label class="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-tinta px-4.5 text-sm font-semibold transition-colors has-checked:border-terracota has-checked:bg-terracota has-checked:text-white has-disabled:cursor-default has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-colibri">
+      <input type="radio" name="cabana" value={cabana.slug} form="form-reserva" class="sr-only" />
+      <span class="group-has-checked/ficha:hidden">Elegir esta</span>
+      <span class="hidden group-has-checked/ficha:inline">Elegida</span>
+    </label>
+    <a href={`/cabanas/${cabana.slug}/`} class="enlace px-1 py-2.5 text-sm">Ver cabaña</a>
+  </div>
+</article>

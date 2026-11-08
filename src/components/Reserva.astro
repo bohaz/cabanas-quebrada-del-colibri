@@ -1,0 +1,120 @@
+---
+/**
+ * Paso final del sendero: fechas, quincho y resumen con el mensaje de WhatsApp ya escrito.
+ * Los campos de personas y cabaña viven en los pasos anteriores y se unen a este formulario con form="form-reserva".
+ */
+import Icono from './Icono.astro';
+import { NEGOCIO, urlWhatsApp } from '../data/negocio';
+import { formatoPesos } from '../lib/reserva';
+---
+<div class="flex flex-wrap items-stretch gap-6">
+  <form id="form-reserva" class="flex min-w-0 flex-[1_1_360px] flex-col gap-4.5 rounded-2xl border border-borde bg-papel-claro p-7" novalidate>
+    <div class="flex flex-wrap gap-4">
+      <label class="flex flex-[1_1_150px] flex-col gap-1.5 text-sm font-semibold">Llegada
+        <input type="date" name="llegada" class="min-h-[46px] rounded-[10px] border border-borde-fuerte bg-white px-3 font-normal text-tinta" />
+      </label>
+      <label class="flex flex-[1_1_150px] flex-col gap-1.5 text-sm font-semibold">Salida
+        <input type="date" name="salida" class="min-h-[46px] rounded-[10px] border border-borde-fuerte bg-white px-3 font-normal text-tinta" />
+      </label>
+    </div>
+    <label class="flex min-h-11 items-center gap-3 text-[15px]">
+      <input type="checkbox" name="quincho" class="size-5 accent-terracota" />
+      Sumar quincho, {NEGOCIO.quincho.horario} ({formatoPesos(NEGOCIO.quincho.valor)})
+    </label>
+    <p class="text-[13px] text-suave">Mínimo 2 noches. Una sola noche tiene otro valor y no aplica en fines de semana largos ni festividades.</p>
+    <p class="hidden rounded-xl bg-[#FBEDE4] px-4 py-3 text-sm text-[#7A3B17]" data-aviso role="status"></p>
+  </form>
+
+  <aside aria-label="Resumen de la reserva" class="flex min-w-0 flex-[1_1_320px] flex-col gap-3.5 rounded-2xl bg-tinta p-7 text-[#F1ECDF]">
+    <p class="text-[13px] uppercase tracking-[0.16em] text-[#D9C9A3]">Su reserva</p>
+    <p class="font-display text-[32px] font-semibold leading-tight" data-r="cabana">Elijan una cabaña</p>
+    <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[15px]">
+      <dt class="text-[#BFC8B8]">Personas</dt><dd class="text-right" data-r="personas">—</dd>
+      <dt class="text-[#BFC8B8]">Noches</dt><dd class="text-right" data-r="noches">—</dd>
+      <dt class="text-[#BFC8B8]">Quincho</dt><dd class="text-right" data-r="quincho">No</dd>
+      <dt class="border-t border-[#44544A] pt-2.5 text-[#BFC8B8]">Valor referencial</dt>
+      <dd class="border-t border-[#44544A] pt-2.5 text-right text-xl font-semibold" data-r="total">—</dd>
+    </dl>
+    <a href={urlWhatsApp()} data-r="enviar" class="btn mt-auto min-h-[52px] bg-[#F1ECDF] text-tinta hover:bg-white">
+      <Icono nombre="whatsapp" /> Enviar por WhatsApp
+    </a>
+    <p class="text-[13px] text-[#BFC8B8]">El mensaje va escrito con estos datos. Les confirman disponibilidad y valor final por el mismo chat.</p>
+  </aside>
+</div>
+
+<script>
+  import { CABANAS, buscarCabana } from '../data/cabanas';
+  import { NEGOCIO, urlWhatsApp } from '../data/negocio';
+  import { cabanasPara, contarNoches, fechaCorta, formatoPesos, mensajeWhatsApp, valorReferencial } from '../lib/reserva';
+
+  const form = document.getElementById("form-reserva") as HTMLFormElement | null;
+  if (form) {
+    const $ = (k: string) => document.querySelector<HTMLElement>(`[data-r="${k}"]`)!;
+    const aviso = form.querySelector<HTMLElement>('[data-aviso]')!;
+    const fichas = document.querySelectorAll<HTMLElement>('[data-cabana]');
+    const textoCalce = document.querySelector<HTMLElement>('[data-calce]');
+    const llegada = form.elements.namedItem('llegada') as HTMLInputElement;
+    const salida = form.elements.namedItem('salida') as HTMLInputElement;
+
+    // No se puede llegar antes de hoy (hora local).
+    const hoy = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    llegada.min = hoy;
+    salida.min = hoy;
+
+    // Si viene desde la página de una cabaña: /?cabana=tagua#reserva
+    const preelegida = new URLSearchParams(location.search).get('cabana');
+    if (preelegida && buscarCabana(preelegida)) {
+      const r = document.querySelector<HTMLInputElement>(`input[name="cabana"][value="${preelegida}"]`);
+      if (r) r.checked = true;
+    }
+
+    const actualizar = () => {
+      const datos = new FormData(form);
+      const personas = Number(datos.get('personas')) || 2;
+      const sirven = cabanasPara(CABANAS, personas);
+
+      // Paso 1 → paso 2: atenuar las cabañas que no alcanzan.
+      fichas.forEach((f) => {
+        const cabe = Number(f.dataset.capacidad) >= personas;
+        f.toggleAttribute('data-fuera', !cabe);
+        const radio = f.querySelector<HTMLInputElement>('input[name="cabana"]')!;
+        radio.disabled = !cabe;
+        if (!cabe) radio.checked = false;
+      });
+      if (textoCalce) textoCalce.textContent = `Para ${personas} personas les sirven: ${sirven.map((c) => c.nombre).join(', ')}.`;
+
+      if (salida.value && llegada.value && salida.value <= llegada.value) {
+        aviso.textContent = 'La salida tiene que ser después de la llegada.';
+        aviso.classList.remove('hidden');
+      } else {
+        aviso.classList.add('hidden');
+      }
+      if (llegada.value) salida.min = llegada.value;
+
+      const solicitud = {
+        cabana: buscarCabana(String(new FormData(form).get('cabana') ?? '')) ?? null,
+        personas,
+        llegada: llegada.value,
+        salida: salida.value,
+        quincho: datos.get('quincho') === 'on',
+        valorQuincho: NEGOCIO.quincho.valor,
+      };
+      const noches = contarNoches(solicitud.llegada, solicitud.salida);
+      const total = valorReferencial(solicitud);
+
+      $('cabana').textContent = solicitud.cabana ? `Cabaña ${solicitud.cabana.nombre}` : 'Elijan una cabaña';
+      $('personas').textContent = String(personas);
+      $('noches').textContent = noches ? `${noches} (${fechaCorta(solicitud.llegada)} al ${fechaCorta(solicitud.salida)})` : '—';
+      $('quincho').textContent = solicitud.quincho ? formatoPesos(NEGOCIO.quincho.valor) : 'No';
+      $('total').textContent = total ? formatoPesos(total) : '—';
+      ($('enviar') as HTMLAnchorElement).href = urlWhatsApp(mensajeWhatsApp(solicitud));
+    };
+
+    // Los campos de los pasos 1 y 2 pertenecen al formulario aunque estén más arriba.
+    form.addEventListener('input', actualizar);
+    form.addEventListener('change', actualizar);
+    document.querySelectorAll('input[form="form-reserva"]').forEach((i) => i.addEventListener('change', actualizar));
+    form.addEventListener('submit', (e) => e.preventDefault());
+    actualizar();
+  }
+</script>

@@ -1,0 +1,19 @@
+---
+/** Íconos de trazo fino. Decorativos salvo que se pase `label`. */
+interface Props { nombre: 'whatsapp' | 'instagram' | 'facebook' | 'abajo' | 'flecha' | 'menu'; size?: number; label?: string; class?: string }
+const { nombre, size = 18, label, class: clase } = Astro.props;
+const trazos: Record<Props['nombre'], string> = {
+  whatsapp: '<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/>',
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6"/>',
+  facebook: '<path d="M15 8h-2a2 2 0 0 0-2 2v11M8 13h6"/>',
+  abajo: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  flecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+};
+---
+<svg
+  width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+  stroke-linecap="round" stroke-linejoin="round" class={clase}
+  {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' })}
+  set:html={trazos[nombre]}
+/>

@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Icono from '../../components/Icono.astro';
+import { CABANAS, type Cabana } from '../../data/cabanas';
+import { NEGOCIO } from '../../data/negocio';
+import { AVES, FOTOS_CABANA } from '../../data/imagenes';
+import { formatoPesos } from '../../lib/reserva';
+
+export function getStaticPaths() {
+  return CABANAS.map((cabana, i) => ({
+    params: { slug: cabana.slug },
+    props: { cabana, siguiente: CABANAS[(i + 1) % CABANAS.length] },
+  }));
+}
+
+interface Props { cabana: Cabana; siguiente: Cabana }
+const { cabana, siguiente } = Astro.props;
+const ave = AVES[cabana.slug];
+const fotos = FOTOS_CABANA[cabana.slug] ?? [];
+const varias = cabana.tarifas.length > 1;
+---
+<Base titulo={`Cabaña ${cabana.nombre}`} descripcion={`Cabaña ${cabana.nombre} para ${cabana.capacidadTexto} en Isla Negra. ${cabana.resumen}`}>
+  <div class="mx-auto max-w-6xl px-5 pb-24 pt-10">
+    <nav aria-label="Ruta" class="mb-8 text-sm text-suave">
+      <a href="/#cabanas" class="enlace">Cabañas</a> <span aria-hidden="true">/</span> {cabana.nombre}
+    </nav>
+
+    <section class="flex flex-wrap items-end gap-x-12 gap-y-6">
+      <div class="min-w-0 flex-[1_1_380px]">
+        <p class="kicker mb-2">{cabana.capacidadTexto}{cabana.accesoUniversal && ' · acceso universal'}</p>
+        <h1 class="font-display text-[56px] font-medium leading-none md:text-[72px]">Cabaña {cabana.nombre}</h1>
+        <p class="mt-2 font-display text-xl italic text-salvia">{cabana.ave}</p>
+        <p class="mt-5 max-w-[520px] text-lg text-texto">{cabana.resumen}{cabana.ubicacion && ` ${cabana.ubicacion}`}</p>
+      </div>
+      {ave && <Image src={ave} alt={`Ilustración de ${cabana.nombre.toLowerCase()}`} width={420} class="h-48 w-auto md:h-60" />}
+    </section>
+
+    <!-- Galería: se llena con las fotos de cada cabaña -->
+    <section aria-label="Fotos" class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
+      {fotos.length ? fotos.slice(0, 5).map((f, i) => (
+        <Image src={f} alt={`Cabaña ${cabana.nombre}, foto ${i + 1}`} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
+      )) : [0, 1, 2, 3, 4].map((i) => (
+        <div class={`flex items-center justify-center rounded-2xl bg-[#EFE8DA] text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
+      ))}
+    </section>
+
+    <div class="mt-14 flex flex-wrap gap-10">
+      <section aria-labelledby="t-incluye" class="min-w-0 flex-[1_1_380px]">
+        <h2 id="t-incluye" class="titulo mb-5 text-[34px] md:text-[38px]">Lo que tiene</h2>
+        <ul class="grid gap-x-8 sm:grid-cols-2">
+          {cabana.comodidades.map((c) => <li class="border-b border-borde py-3">{c}</li>)}
+          <li class="border-b border-borde py-3">Sábanas incluidas</li>
+        </ul>
+      </section>
+
+      <aside aria-labelledby="t-valores" class="flex min-w-0 flex-[1_1_320px] flex-col gap-4 self-start rounded-2xl border border-borde bg-papel-claro p-7">
+        <h2 id="t-valores" class="font-display text-[30px] font-semibold leading-tight">Valores por noche</h2>
+        <p class="-mt-2 text-sm text-suave">{NEGOCIO.temporada}</p>
+        <table class="w-full text-[15px]">
+          <thead class="sr-only"><tr><th>Personas</th><th>Desde 2 noches</th><th>Una noche</th></tr></thead>
+          <tbody>
+            {cabana.tarifas.map((t) => (
+              <tr class="border-b border-borde">
+                {varias && <td class="py-2.5 text-texto">{t.personas} personas</td>}
+                <td class="py-2.5"><strong class="text-lg">{formatoPesos(t.minimo2)}</strong> <span class="text-sm text-suave">desde 2 noches</span></td>
+                <td class="py-2.5 text-right text-sm text-suave">{formatoPesos(t.unaNoche)} una noche</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="text-[13px] text-suave">Una sola noche no aplica en fines de semana largos ni festividades.</p>
+        <a href={`/?cabana=${cabana.slug}#reserva`} class="btn-primario">Reservar esta cabaña</a>
+        {cabana.airbnb && <a href={cabana.airbnb} class="enlace self-center py-2 text-sm">También está en Airbnb</a>}
+      </aside>
+    </div>
+
+    <a href={`/cabanas/${siguiente.slug}/`} class="mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-[#E3E9DA]">
+      <span><span class="block text-sm text-suave">Siguiente en el sendero</span><span class="font-display text-[28px] font-semibold">Cabaña {siguiente.nombre}</span></span>
+      <Icono nombre="flecha" size={24} />
+    </a>
+  </div>
+</Base>
