@@ -37,34 +37,34 @@ const varias = cabana.tarifas.length > 1;
     </section>
 
     <!-- Galería: se llena con las fotos de cada cabaña -->
-    <section aria-label="Fotos" class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
+    <section aria-label="Fotos" class="aparece mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
       {fotos.length ? fotos.slice(0, 5).map((f, i) => (
-        <Image src={f} alt={`Cabaña ${cabana.nombre}, foto ${i + 1}`} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
+        <Image src={f.src} alt={f.alt} style={f.pos ? `object-position: ${f.pos}` : undefined} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
       )) : [0, 1, 2, 3, 4].map((i) => (
-        <div class={`flex items-center justify-center rounded-2xl bg-[#EFE8DA] text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
+        <div class={`flex items-center justify-center rounded-2xl bg-placeholder text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
       ))}
     </section>
 
-    <div class="mt-14 flex flex-wrap gap-10">
+    <div class="aparece mt-14 flex flex-wrap gap-10">
       <section aria-labelledby="t-incluye" class="min-w-0 flex-[1_1_380px]">
         <h2 id="t-incluye" class="titulo mb-5 text-[34px] md:text-[38px]">Lo que tiene</h2>
         <ul class="grid gap-x-8 sm:grid-cols-2">
-          {cabana.comodidades.map((c) => <li class="border-b border-borde py-3">{c}</li>)}
-          <li class="border-b border-borde py-3">Sábanas incluidas</li>
+          {cabana.comodidades.map((c) => <li class="flex items-center border-b border-borde py-3">{c}</li>)}
+          <li class="flex items-center border-b border-borde py-3">Sábanas incluidas</li>
         </ul>
       </section>
 
-      <aside aria-labelledby="t-valores" class="flex min-w-0 flex-[1_1_320px] flex-col gap-4 self-start rounded-2xl border border-borde bg-papel-claro p-7">
+      <aside aria-labelledby="t-valores" class="flex min-w-0 flex-[1_1_320px] flex-col gap-4 self-start rounded-2xl border border-borde bg-papel-claro p-5 sm:p-7">
         <h2 id="t-valores" class="font-display text-[30px] font-semibold leading-tight">Valores por noche</h2>
         <p class="-mt-2 text-sm text-suave">{NEGOCIO.temporada}</p>
         <table class="w-full text-[15px]">
-          <thead class="sr-only"><tr><th>Personas</th><th>Desde 2 noches</th><th>Una noche</th></tr></thead>
+          <thead class="sr-only"><tr>{varias && <th>Personas</th>}<th>Desde 2 noches</th><th>Una noche</th></tr></thead>
           <tbody>
             {cabana.tarifas.map((t) => (
               <tr class="border-b border-borde">
-                {varias && <td class="py-2.5 text-texto">{t.personas} personas</td>}
-                <td class="py-2.5"><strong class="text-lg">{formatoPesos(t.minimo2)}</strong> <span class="text-sm text-suave">desde 2 noches</span></td>
-                <td class="py-2.5 text-right text-sm text-suave">{formatoPesos(t.unaNoche)} una noche</td>
+                {varias && <td class="whitespace-nowrap py-2.5 pr-3 max-sm:align-top text-texto">{t.personas} personas</td>}
+                <td class="py-2.5 pr-3 align-top"><strong class="text-lg max-sm:block">{formatoPesos(t.minimo2)}</strong> <span class="text-sm text-suave">desde 2 noches</span></td>
+                <td class="py-2.5 text-right max-sm:align-top text-sm text-suave"><span class="max-sm:block max-sm:text-[15px] max-sm:leading-7">{formatoPesos(t.unaNoche)}</span> una noche</td>
               </tr>
             ))}
           </tbody>
@@ -75,7 +75,7 @@ const varias = cabana.tarifas.length > 1;
       </aside>
     </div>
 
-    <a href={`/cabanas/${siguiente.slug}/`} class="mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-[#E3E9DA]">
+    <a href={`/cabanas/${siguiente.slug}/`} class="aparece mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-salvia-hover">
       <span><span class="block text-sm text-suave">Siguiente en el sendero</span><span class="font-display text-[28px] font-semibold">Cabaña {siguiente.nombre}</span></span>
       <Icono nombre="flecha" size={24} />
     </a>

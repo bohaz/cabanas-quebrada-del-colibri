@@ -5,17 +5,15 @@ import { Image } from 'astro:assets';
 import Icono from '../components/Icono.astro';
 import { NEGOCIO, urlWhatsApp } from '../data/negocio';
 import { logo } from '../data/imagenes';
-import { CABANAS, precioDesde } from '../data/cabanas';
-import { formatoPesos } from '../lib/reserva';
 
 interface Props { titulo?: string; descripcion?: string }
 const { titulo, descripcion = NEGOCIO.descripcion } = Astro.props;
 const tituloCompleto = titulo ? `${titulo} · ${NEGOCIO.nombre}` : `${NEGOCIO.nombre} · Isla Negra`;
 const ruta = Astro.url.pathname;
-const desde = formatoPesos(Math.min(...CABANAS.map(precioDesde)));
 const nav = [
   { href: '/#cabanas', texto: 'Cabañas' },
   { href: '/el-lugar/', texto: 'El lugar' },
+  { href: '/tinajas/', texto: 'Tinajas' },
   { href: '/isla-negra/', texto: 'Isla Negra' },
 ];
 ---
@@ -55,17 +53,17 @@ const nav = [
         </a>
         <nav aria-label="Principal" class="ml-auto hidden items-center gap-6 text-[15px] font-medium md:flex">
           {nav.map((l) => (
-            <a href={l.href} class="py-2.5 text-tinta no-underline hover:text-terracota" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>
+            <a href={l.href} class="py-2.5 text-tinta no-underline decoration-oro decoration-2 underline-offset-8 hover:text-terracota aria-[current=page]:underline" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>
           ))}
           <a href="/#reserva" class="btn-oscuro min-h-11 px-5 text-[15px]">Reservar</a>
         </nav>
-        <!-- Menú en celular: sin JavaScript -->
-        <details class="group relative ml-auto md:hidden">
+        <!-- Menú en celular: funciona sin JavaScript; el script de abajo solo lo cierra al navegar -->
+        <details class="group relative ml-auto md:hidden" data-menu>
           <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-full border border-borde-fuerte [&::-webkit-details-marker]:hidden" aria-label="Abrir menú">
             <Icono nombre="menu" size={20} />
           </summary>
           <nav aria-label="Principal" class="absolute right-0 top-13 flex w-56 flex-col rounded-2xl border border-borde bg-papel-claro p-2 shadow-lg">
-            {nav.map((l) => <a href={l.href} class="rounded-xl px-4 py-3 text-tinta no-underline hover:bg-arena">{l.texto}</a>)}
+            {nav.map((l) => <a href={l.href} class="rounded-xl px-4 py-3 text-tinta no-underline hover:bg-arena aria-[current=page]:bg-arena aria-[current=page]:font-semibold" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>)}
             <a href="/#reserva" class="rounded-xl px-4 py-3 font-semibold text-terracota no-underline hover:bg-arena">Reservar</a>
           </nav>
         </details>
@@ -76,30 +74,30 @@ const nav = [
       <slot />
     </main>
 
-    <footer class="bg-tinta pb-24 text-[#E9E4D6] md:pb-0">
+    <footer class="zona-oscura bg-tinta text-crema-tenue">
       <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-5 py-10">
         <div class="flex items-center gap-3.5">
           <Image src={logo} alt="" width={56} height={56} class="size-14 rounded-full" />
           <div>
             <p class="font-display text-[21px] font-semibold">{NEGOCIO.nombre}</p>
-            <p class="text-sm text-[#C7C2B2]">{NEGOCIO.localidad} · Registro Sernatur · {NEGOCIO.telefonoVisible}</p>
+            <p class="text-sm text-piedra">{NEGOCIO.localidad} · Registro Sernatur · {NEGOCIO.telefonoVisible}</p>
           </div>
         </div>
         <div class="flex gap-2">
-          <a href={urlWhatsApp()} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="whatsapp" label="WhatsApp" /></a>
-          <a href={NEGOCIO.instagram} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="instagram" label="Instagram" /></a>
-          {NEGOCIO.facebook && <a href={NEGOCIO.facebook} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="facebook" label="Facebook" /></a>}
+          <a href={urlWhatsApp()} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="whatsapp" label="WhatsApp" /></a>
+          <a href={NEGOCIO.instagram} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="instagram" label="Instagram" /></a>
+          {NEGOCIO.facebook && <a href={NEGOCIO.facebook} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="facebook" label="Facebook" /></a>}
         </div>
       </div>
-      <div class="border-t border-[#44544A]">
-        <p class="mx-auto max-w-6xl px-5 py-3.5 text-[13px] text-[#B9B4A4]">Sitio web por <a href="https://tuplandigital.cl" class="text-[#E9E4D6]">Tu Plan Digital</a></p>
+      <div class="border-t border-linea-oscura">
+        <p class="mx-auto max-w-6xl px-5 py-3.5 text-[13px] text-piedra-oscura">Sitio web por <a href="https://tuplandigital.cl" class="text-crema-tenue underline underline-offset-4">Tu Plan Digital</a></p>
       </div>
     </footer>
-
-    <!-- Barra fija de reserva en celular -->
-    <div class="fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-3 rounded-full bg-tinta py-2 pl-5 pr-2 text-[#F1ECDF] shadow-[0_12px_28px_-12px_rgba(43,58,46,0.6)] md:hidden">
-      <span class="text-sm">Desde <strong>{desde}</strong> / noche</span>
-      <a href="/#reserva" class="btn-primario min-h-11 px-5 text-[15px]">Reservar</a>
-    </div>
+    <script>
+      // Los enlaces a secciones de la misma página no recargan, así que el menú quedaría abierto encima del contenido.
+      document.querySelectorAll<HTMLAnchorElement>('[data-menu] a').forEach((enlace) => {
+        enlace.addEventListener('click', () => enlace.closest('details')?.removeAttribute('open'));
+      });
+    </script>
   </body>
 </html>

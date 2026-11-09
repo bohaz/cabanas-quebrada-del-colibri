@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { NEGOCIO, urlWhatsApp } from '../data/negocio';
+import { FOTOS } from '../data/imagenes';
+import { formatoPesos } from '../lib/reserva';
+
+const { tinaja } = NEGOCIO;
+
+const beneficios = [
+  { titulo: 'Relaja el cuerpo', texto: 'El agua caliente ayuda a soltar los músculos y las tensiones.' },
+  { titulo: 'Desconecta', texto: 'Una hora al aire libre, entre árboles, para descansar y dormir mejor.' },
+];
+
+const reglas = [
+  'Entrar sin aceites, cremas, bloqueador ni maquillaje. Lo ideal es ducharse antes.',
+  'No sentarse en los bordes de la tinaja.',
+  'No comer dentro de la tinaja.',
+  'Los menores de edad deben estar siempre con supervisión directa.',
+  'Evitar ruidos molestos que afecten el descanso de otros visitantes.',
+];
+---
+<Base titulo="Tinajas" descripcion={`Tinaja de agua caliente al aire libre en las Cabañas Quebrada del Colibrí, Isla Negra. Desde ${formatoPesos(tinaja.valores[0].valor)} la hora.`}>
+  <div class="mx-auto max-w-6xl px-5 pb-24 pt-14">
+    <nav aria-label="Ruta" class="mb-8 text-sm text-suave">
+      <a href="/el-lugar/" class="enlace">El lugar</a> / <span aria-current="page">Tinajas</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-x-14 gap-y-10">
+      <div class="min-w-0 flex-[1_1_360px]">
+        <p class="kicker mb-2">El lugar</p>
+        <h1 class="font-display text-[48px] font-medium leading-[1.05] md:text-[60px]">Tinaja de agua caliente</h1>
+        <p class="mt-5 max-w-[460px] text-lg text-texto">
+          Una tinaja de madera al aire libre, entre los árboles de la quebrada. Se reserva por hora, {tinaja.horario}.
+        </p>
+
+        <section aria-labelledby="t-valores" class="mt-10 rounded-2xl border border-borde bg-papel-claro p-7">
+          <h2 id="t-valores" class="font-display text-[30px] font-semibold">Valores</h2>
+          <p class="mt-1 text-sm text-suave">Por 1 hora</p>
+          <ul class="mt-4 border-t border-borde">
+            {tinaja.valores.map((v) => (
+              <li class="flex items-baseline justify-between gap-3 border-b border-borde py-3.5">
+                <span>{v.personas} personas</span>
+                <strong class="text-lg">{formatoPesos(v.valor)}</strong>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 text-sm text-texto">
+            Desde la 5.ª persona se suman {formatoPesos(tinaja.adicional)} por persona, hasta {tinaja.maximo} personas.
+            El último turno parte a las 21:00.
+          </p>
+          <a href={urlWhatsApp('Hola, quiero reservar la tinaja.')} class="btn-primario mt-6 w-full">Reservar por WhatsApp</a>
+        </section>
+      </div>
+
+      <Image
+        src={FOTOS.tinaja}
+        alt="Tinaja de madera con escalera entre árboles, junto a una cabaña"
+        widths={[500, 900]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        loading="eager"
+        class="aspect-[4/5] min-w-0 flex-[1_1_420px] rounded-2xl object-cover object-[50%_60%]"
+      />
+    </div>
+
+    <div class="mt-20 flex flex-wrap gap-x-14 gap-y-12">
+      <section aria-labelledby="t-beneficios" class="aparece min-w-0 flex-[1_1_340px]">
+        <h2 id="t-beneficios" class="titulo mb-6">Por qué darse una hora</h2>
+        <ul class="flex flex-col gap-5">
+          {beneficios.map((b) => (
+            <li>
+              <strong class="font-display text-2xl font-semibold">{b.titulo}</strong>
+              <p class="text-texto">{b.texto}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="t-reglas" class="aparece min-w-0 flex-[1_1_440px]">
+        <h2 id="t-reglas" class="titulo mb-6">Reglas de uso</h2>
+        <p class="mb-4 rounded-xl bg-salvia-claro px-5 py-4 text-texto">
+          No se recomienda para mujeres embarazadas ni personas con problemas de presión.
+        </p>
+        <ul class="border-t border-borde">
+          {reglas.map((r) => <li class="border-b border-borde py-3.5">{r}</li>)}
+        </ul>
+      </section>
+    </div>
+
+    <div class="mt-16 text-center"><a href="/#reserva" class="btn-primario">Reservar una cabaña</a></div>
+  </div>
+</Base>

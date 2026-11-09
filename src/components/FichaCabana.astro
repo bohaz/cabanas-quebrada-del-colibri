@@ -17,9 +17,11 @@ const varias = cabana.tarifas.length > 1;
   data-capacidad={cabana.capacidad}
 >
   {foto ? (
-    <Image src={foto} alt={`Cabaña ${cabana.nombre}`} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/10] w-full rounded-xl object-cover" />
+    <div class="overflow-hidden rounded-xl">
+      <Image src={foto.src} alt={foto.alt} style={foto.pos ? `object-position: ${foto.pos}` : undefined} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/10] w-full object-cover transition-transform duration-500 ease-suave motion-safe:group-hover/ficha:scale-[1.03]" />
+    </div>
   ) : (
-    <div class="flex aspect-[16/10] items-center justify-center rounded-xl bg-[#EFE8DA] text-[13px] text-suave">Foto de la cabaña</div>
+    <div class="flex aspect-[16/10] items-center justify-center rounded-xl bg-placeholder text-[13px] text-suave">Foto de la cabaña</div>
   )}
   <div class="flex items-end justify-between gap-2">
     <div>
@@ -43,7 +45,8 @@ const varias = cabana.tarifas.length > 1;
       <input type="radio" name="cabana" value={cabana.slug} form="form-reserva" class="sr-only" />
       <span class="group-has-checked/ficha:hidden">Elegir esta</span>
       <span class="hidden group-has-checked/ficha:inline">Elegida</span>
+      <span class="sr-only">: Cabaña {cabana.nombre}</span>
     </label>
-    <a href={`/cabanas/${cabana.slug}/`} class="enlace px-1 py-2.5 text-sm">Ver cabaña</a>
+    <a href={`/cabanas/${cabana.slug}/`} class="enlace px-1 py-2.5 text-sm">Ver cabaña<span class="sr-only"> {cabana.nombre}</span></a>
   </div>
 </article>

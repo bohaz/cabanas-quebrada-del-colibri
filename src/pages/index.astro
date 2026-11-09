@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Sendero from '../components/Sendero.astro';
 import FichaCabana from '../components/FichaCabana.astro';
 import Reserva from '../components/Reserva.astro';
 import Icono from '../components/Icono.astro';
 import { CABANAS } from '../data/cabanas';
 import { NEGOCIO } from '../data/negocio';
+import { formatoPesos } from '../lib/reserva';
 import { AVES, FOTOS } from '../data/imagenes';
 
 const personas = [2, 3, 4, 5, 6, 7];
@@ -15,89 +15,94 @@ const lugar = [
   { foto: FOTOS.piscina, alt: 'Piscina entre árboles con colibríes de madera colgando sobre un macetero', titulo: 'Piscina', texto: 'Rodeada de árboles, con reposeras.' },
   { foto: FOTOS.quincho, alt: 'Quincho de madera con parrilla de ladrillo y horno de barro', titulo: 'Quincho', texto: `Parrilla y horno de barro, ${NEGOCIO.quincho.horario}. Se agrega en la reserva.` },
   { foto: FOTOS.juegos, alt: 'Columpios de madera con las cabañas al fondo', titulo: 'Juegos infantiles', texto: 'Columpios, resbalín, sube y baja, trepa, puentecito colgante y casita.' },
+  { foto: FOTOS.tinaja, encuadre: 'object-[50%_62%]', alt: 'Tinaja de madera con escalera entre árboles, junto a una cabaña', titulo: 'Tinaja', texto: `Agua caliente al aire libre, desde ${formatoPesos(NEGOCIO.tinaja.valores[0].valor)} la hora.`, href: '/tinajas/' },
 ];
 ---
 <Base>
   <div class="mx-auto max-w-6xl px-5">
-    <Sendero>
-      <!-- Hito 1 · Llegada -->
-      <section aria-labelledby="t-llegada" class="flex flex-wrap items-center gap-12 pb-20 pt-14 md:pt-16">
-        <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-5.5">
-          <p class="kicker"><span class="hito" aria-hidden="true">1</span>{NEGOCIO.localidad} · Litoral Central</p>
-          <h1 id="t-llegada" class="font-display text-[48px] font-medium leading-[1.02] md:text-[64px]">
-            Seis cabañas.<br /><em class="text-salvia">Seis aves de Chile.</em>
-          </h1>
-          <p class="max-w-[460px] text-lg text-texto">
-            Cabañas de estilo rústico moderno entre pinos y suculentas, con piscina, quincho y juegos para los niños.
-            Sigan el sendero: en tres pasos encuentran la suya.
-          </p>
-          <a href="#personas" class="btn-primario self-start">Empezar el sendero <Icono nombre="abajo" size={16} /></a>
-        </div>
-        <div class="relative flex min-w-0 flex-[1_1_340px] justify-center">
-          <div aria-hidden="true" class="absolute right-0 top-[-24px] aspect-square w-[92%] max-w-[420px] rounded-full border border-oro"></div>
-          <Image src={FOTOS.juegos} alt="Patio con columpios de madera y las cabañas entre los árboles" widths={[440, 860]} sizes="(min-width: 768px) 440px, 90vw" loading="eager" fetchpriority="high" class="relative aspect-[4/5] w-full max-w-[440px] rounded-[220px_220px_18px_18px] object-cover" />
-          {AVES.loica && <Image src={AVES.loica} alt="" width={260} class="absolute bottom-[-30px] left-0 w-[110px] md:w-[130px]" />}
-        </div>
-      </section>
-
-      <!-- Hito 2 · ¿Cuántos vienen? -->
-      <section id="personas" aria-labelledby="t-personas" class="aparece pb-14 pt-10">
-        <p class="kicker mb-1.5"><span class="hito" aria-hidden="true">2</span>Paso 1 de 3</p>
-        <h2 id="t-personas" class="titulo mb-5">¿Cuántos vienen?</h2>
-        <fieldset class="flex flex-wrap gap-2.5">
-          <legend class="sr-only">Cantidad de personas</legend>
-          {personas.map((n) => (
-            <label class="inline-flex min-h-[46px] cursor-pointer items-center rounded-full border border-borde-fuerte bg-papel-claro px-5 text-[15px] font-medium transition-colors hover:border-tinta has-checked:border-tinta has-checked:bg-tinta has-checked:text-papel has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-colibri">
-              <input type="radio" name="personas" value={n} form="form-reserva" class="sr-only" checked={n === personasInicial} />
-              {n} personas
-            </label>
-          ))}
-        </fieldset>
-        <p class="mt-4 text-texto" data-calce aria-live="polite">Hay cabañas de 2 a 7 personas.</p>
-      </section>
-
-      <!-- Hito 3 · Elijan su cabaña -->
-      <section id="cabanas" aria-labelledby="t-cabanas" class="pb-16 pt-10">
-        <p class="kicker mb-1.5"><span class="hito" aria-hidden="true">3</span>Paso 2 de 3</p>
-        <h2 id="t-cabanas" class="titulo mb-2">Elijan su cabaña</h2>
-        <p class="mb-7 max-w-[620px] text-texto">
-          Cada una lleva el nombre de un ave chilena. Todas tienen cocina equipada, WiFi, TV cable, estacionamiento y sábanas incluidas.
+    <!-- Hito 1 · Llegada -->
+    <section aria-labelledby="t-llegada" class="flex flex-wrap items-center gap-12 pb-20 pt-14 md:pt-16">
+      <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-5.5">
+        <p class="entrada kicker">{NEGOCIO.localidad} · Litoral Central</p>
+        <h1 id="t-llegada" class="entrada font-display [--retraso:80ms] text-[48px] font-medium leading-[1.02] md:text-[64px]">
+          Seis cabañas.<br /><em class="text-salvia">Seis aves de Chile.</em>
+        </h1>
+        <p class="entrada max-w-[460px] text-lg text-texto [--retraso:160ms]">
+          Cabañas de estilo rústico moderno entre pinos y suculentas, con piscina, quincho y juegos para los niños.
+          Sigan el sendero: en tres pasos encuentran la suya.
         </p>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-5">
-          {CABANAS.map((c) => <FichaCabana cabana={c} />)}
+        <a href="#personas" class="entrada btn-primario self-start [--retraso:240ms]">Empezar el sendero <Icono nombre="abajo" size={16} /></a>
+      </div>
+      <div class="flex min-w-0 flex-[1_1_340px] justify-center">
+        <!-- El círculo y el ave se anclan a la foto, no al contenedor, para que no se separen en anchos intermedios -->
+        <div class="entrada relative w-full max-w-[440px] [--retraso:120ms]">
+          <div aria-hidden="true" class="absolute right-0 top-[-24px] aspect-square w-[72%] rounded-full border border-oro md:-right-9"></div>
+          <Image src={FOTOS.juegos} alt="Patio con columpios de madera y las cabañas entre los árboles" widths={[440, 860]} sizes="(min-width: 768px) 440px, 90vw" loading="eager" fetchpriority="high" class="relative aspect-[4/3] w-full rounded-2xl object-cover" />
+          {AVES.loica && <Image src={AVES.loica} alt="" width={260} class="absolute bottom-[-30px] left-0 w-[110px] md:-left-12 md:w-[130px]" />}
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Hito 4 · Un alto en el camino -->
-      <section id="lugar" aria-labelledby="t-lugar" class="aparece pb-16 pt-10">
-        <p class="kicker mb-1.5"><span class="hito" aria-hidden="true">4</span>Un alto en el camino</p>
-        <h2 id="t-lugar" class="titulo mb-7">Lo que comparten todas</h2>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
-          {lugar.map((l) => (
-            <figure class="flex flex-col gap-3">
-              <Image src={l.foto} alt={l.alt} widths={[400, 800]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[4/3] w-full rounded-[14px] object-cover" />
-              <figcaption>
-                <strong class="font-display text-2xl font-semibold">{l.titulo}</strong><br />
-                <span class="text-sm text-texto">{l.texto}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-[14px] bg-salvia-claro p-6">
-          <p class="font-display text-2xl font-semibold">Alrededor, Isla Negra</p>
-          <ul class="flex flex-wrap gap-2">
-            {NEGOCIO.cercanias.map((c) => <li class="rounded-full bg-white px-3.5 py-1.5 text-sm">{c}</li>)}
-          </ul>
-          <a href="/isla-negra/" class="enlace ml-auto py-2.5 text-sm">Cómo llegar</a>
-        </div>
-      </section>
+    <!-- Hito 2 · ¿Cuántos vienen? -->
+    <section id="personas" aria-labelledby="t-personas" class="aparece pb-14 pt-10">
+      <p class="kicker mb-1.5"><span class="hito" aria-hidden="true">1</span>Paso 1 de 3</p>
+      <h2 id="t-personas" class="titulo mb-5">¿Cuántos vienen?</h2>
+      <fieldset class="flex flex-wrap gap-2.5">
+        <legend class="sr-only">Cantidad de personas</legend>
+        {personas.map((n) => (
+          <label class="inline-flex min-h-[46px] cursor-pointer items-center rounded-full border border-borde-control bg-papel-claro px-5 text-[15px] font-medium transition-colors hover:border-tinta has-checked:border-tinta has-checked:bg-tinta has-checked:text-papel has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-colibri">
+            <input type="radio" name="personas" value={n} form="form-reserva" class="sr-only" checked={n === personasInicial} />
+            {n} personas
+          </label>
+        ))}
+      </fieldset>
+      <p class="mt-4 text-texto" data-calce aria-live="polite">Hay cabañas de 2 a 7 personas.</p>
+    </section>
 
-      <!-- Hito 5 · Reserva -->
-      <section id="reserva" aria-labelledby="t-reserva" class="pb-24 pt-10">
-        <p class="kicker mb-1.5"><span class="hito border-terracota bg-terracota text-white" aria-hidden="true">5</span>Paso 3 de 3</p>
-        <h2 id="t-reserva" class="titulo mb-7">¿Cuándo llegan?</h2>
-        <Reserva />
-      </section>
-    </Sendero>
+    <!-- Hito 3 · Elijan su cabaña -->
+    <section id="cabanas" aria-labelledby="t-cabanas" class="aparece pb-16 pt-10">
+      <p class="kicker mb-1.5"><span class="hito" aria-hidden="true">2</span>Paso 2 de 3</p>
+      <h2 id="t-cabanas" class="titulo mb-2">Elijan su cabaña</h2>
+      <p class="mb-7 max-w-[620px] text-texto">
+        Cada una lleva el nombre de un ave chilena. Todas tienen cocina equipada, WiFi, TV cable, estacionamiento y sábanas incluidas.
+      </p>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-5">
+        {CABANAS.map((c) => <FichaCabana cabana={c} />)}
+      </div>
+    </section>
+
+    <!-- Hito 4 · Un alto en el camino -->
+    <section id="lugar" aria-labelledby="t-lugar" class="aparece pb-16 pt-10">
+      <p class="kicker mb-1.5">Un alto en el camino</p>
+      <h2 id="t-lugar" class="titulo mb-7">Lo que comparten todas</h2>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
+        {lugar.map((l) => (
+          <figure class="group flex flex-col gap-3">
+            <div class="overflow-hidden rounded-[14px]">
+              <Image src={l.foto} alt={l.alt} widths={[400, 800]} sizes="(min-width: 768px) 33vw, 100vw" class={`aspect-[4/3] w-full object-cover ${l.encuadre ?? ''} transition-transform duration-500 ease-suave motion-safe:group-hover:scale-[1.03]`} />
+            </div>
+            <figcaption>
+              <strong class="font-display text-2xl font-semibold">{l.titulo}</strong><br />
+              <span class="text-sm text-texto">{l.texto}</span>
+              {l.href && <><br /><a href={l.href} class="enlace inline-block py-2 text-sm">Ver tarifas y reglas</a></>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-[14px] bg-salvia-claro p-6">
+        <p class="font-display text-2xl font-semibold">Alrededor, Isla Negra</p>
+        <ul class="flex flex-wrap gap-2">
+          {NEGOCIO.cercanias.map((c) => <li class="rounded-full bg-white px-3.5 py-1.5 text-sm">{c}</li>)}
+        </ul>
+        <a href="/isla-negra/" class="enlace ml-auto py-2.5 text-sm">Cómo llegar</a>
+      </div>
+    </section>
+
+    <!-- Hito 5 · Reserva -->
+    <section id="reserva" aria-labelledby="t-reserva" class="aparece pb-24 pt-10">
+      <p class="kicker mb-1.5"><span class="hito border-terracota bg-terracota text-white" aria-hidden="true">3</span>Paso 3 de 3</p>
+      <h2 id="t-reserva" class="titulo mb-7">¿Cuándo llegan?</h2>
+      <Reserva />
+    </section>
   </div>
 </Base>

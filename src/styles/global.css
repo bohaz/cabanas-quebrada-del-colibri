@@ -7,6 +7,8 @@
   --color-arena: #F3EEE3;
   --color-borde: #E4DCCB;
   --color-borde-fuerte: #D6CCB6;
+  /* Borde de campos y opciones: 3:1 sobre papel y blanco (WCAG 1.4.11). */
+  --color-borde-control: #8F8672;
   --color-tinta: #2B3A2E;
   --color-texto: #4A5A4C;
   --color-suave: #6B6B5E;
@@ -17,22 +19,50 @@
   --color-oro: #C9A86A;
   --color-colibri: #2F6F7C;
 
+  /* Estados hover */
+  --color-terracota-hover: #8C4722;
+  --color-tinta-hover: #1F2B22;
+  --color-tinta-claro: #3A4B3E;
+  --color-salvia-hover: #E3E9DA;
+
+  /* Sobre fondo tinta (footer, resumen de reserva, barra del celular) */
+  --color-crema: #F1ECDF;
+  --color-crema-tenue: #E9E4D6;
+  --color-paja: #D9C9A3;
+  --color-liquen: #BFC8B8;
+  --color-piedra: #C7C2B2;
+  --color-piedra-oscura: #B9B4A4;
+  --color-linea-oscura: #44544A;
+  --color-borde-oscuro: #5E6E60;
+
+  /* Avisos y marcadores de foto */
+  --color-aviso-fondo: #FBEDE4;
+  --color-aviso-texto: #7A3B17;
+  --color-placeholder: #EFE8DA;
+
+  /* Curva de todas las animaciones: arranca rápido y frena suave. */
+  --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
+
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Work Sans", system-ui, sans-serif;
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html { scroll-padding-top: 88px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body { @apply bg-papel text-tinta font-sans antialiased; }
-  :focus-visible { outline: 2px solid var(--color-colibri); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--foco, var(--color-colibri)); outline-offset: 3px; }
 }
+
+/* El colibrí no alcanza 3:1 sobre tinta: en zonas oscuras el foco pasa a crema. */
+@utility zona-oscura { --foco: var(--color-crema); }
 
 @utility kicker { @apply flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-terracota-oscuro; }
 @utility hito { @apply inline-flex size-[30px] flex-none items-center justify-center rounded-full border-[1.5px] border-oro bg-papel font-display text-[17px] font-semibold tracking-normal text-terracota-oscuro; }
 @utility titulo { @apply font-display font-medium leading-[1.08] text-[38px] md:text-[46px]; }
-@utility btn { @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 font-semibold no-underline transition-colors; }
-@utility btn-primario { @apply btn bg-terracota text-white hover:bg-[#8C4722]; }
-@utility btn-oscuro { @apply btn bg-tinta text-papel hover:bg-[#1F2B22]; }
+@utility btn { @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 font-semibold no-underline transition-[color,background-color,border-color,translate] duration-300 ease-suave motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0; }
+@utility btn-primario { @apply btn bg-terracota text-white hover:bg-terracota-hover; }
+@utility btn-oscuro { @apply btn bg-tinta text-papel hover:bg-tinta-hover; }
 @utility btn-borde { @apply btn border border-tinta text-tinta hover:bg-tinta hover:text-papel; }
 @utility enlace { @apply font-semibold text-colibri underline-offset-4 hover:underline; }
 

@@ -4,7 +4,7 @@ Sitio del Plan Negocio de Tu Plan Digital. Astro + Tailwind, estático, pensado 
 
 ## Concepto
 
-Cada cabaña lleva el nombre de un ave chilena. La página de inicio es un **sendero en S** que pasa por detrás del contenido y guía la reserva en cinco hitos:
+Cada cabaña lleva el nombre de un ave chilena. La página de inicio guía la reserva en cinco hitos:
 
 1. Llegada
 2. ¿Cuántos vienen? (filtra las cabañas que sirven)
@@ -18,7 +18,7 @@ No hay reservas en línea: la reserva se confirma por WhatsApp.
 
 | Ruta | Contenido |
 | --- | --- |
-| `/` | Sendero de reserva |
+| `/` | Reserva paso a paso |
 | `/cabanas/[slug]/` | Una página por cabaña (fotos, comodidades, tarifas) |
 | `/el-lugar/` | Piscina, quincho, juegos y galería |
 | `/isla-negra/` | Mapa y cercanías |
@@ -41,9 +41,9 @@ npm run build    # sitio estático en dist/
 
 ## Decisiones técnicas
 
-- Animaciones con CSS: el sendero se dibuja con `animation-timeline: scroll()`; sin soporte, se ve completo. Respeta `prefers-reduced-motion`.
-- JavaScript mínimo: recalcular la curva al tamaño real y el resumen de la reserva. Sin JavaScript, el botón de WhatsApp abre el chat igual.
-- Menú del celular sin JavaScript (`<details>`).
+- Animaciones con CSS: los hitos aparecen al entrar en pantalla con `animation-timeline: view()`; sin soporte, se ven directo. Respeta `prefers-reduced-motion`.
+- JavaScript mínimo: el resumen de la reserva. Sin JavaScript, el botón de WhatsApp abre el chat igual.
+- Menú del celular sin JavaScript (`<details>`); un script mínimo solo lo cierra al tocar un enlace.
 - Imágenes optimizadas a WebP con `astro:assets`.
 
 ## Pendiente del cliente
