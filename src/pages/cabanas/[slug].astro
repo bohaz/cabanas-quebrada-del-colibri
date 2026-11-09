@@ -62,9 +62,9 @@ const varias = cabana.tarifas.length > 1;
           <tbody>
             {cabana.tarifas.map((t) => (
               <tr class="border-b border-borde">
-                {varias && <td class="whitespace-nowrap py-2.5 pr-3 align-top text-texto">{t.personas} personas</td>}
+                {varias && <td class="whitespace-nowrap py-2.5 pr-3 max-sm:align-top text-texto">{t.personas} personas</td>}
                 <td class="py-2.5 pr-3 align-top"><strong class="text-lg max-sm:block">{formatoPesos(t.minimo2)}</strong> <span class="text-sm text-suave">desde 2 noches</span></td>
-                <td class="py-2.5 text-right align-top text-sm text-suave"><span class="max-sm:block max-sm:text-[15px] max-sm:leading-7">{formatoPesos(t.unaNoche)}</span> una noche</td>
+                <td class="py-2.5 text-right max-sm:align-top text-sm text-suave"><span class="max-sm:block max-sm:text-[15px] max-sm:leading-7">{formatoPesos(t.unaNoche)}</span> una noche</td>
               </tr>
             ))}
           </tbody>
