@@ -43,7 +43,7 @@ npm run build    # sitio estático en dist/
 
 - Animaciones con CSS: el sendero se dibuja con `animation-timeline: scroll()`; sin soporte, se ve completo. Respeta `prefers-reduced-motion`.
 - JavaScript mínimo: recalcular la curva al tamaño real y el resumen de la reserva. Sin JavaScript, el botón de WhatsApp abre el chat igual.
-- Menú del celular sin JavaScript (`<details>`).
+- Menú del celular sin JavaScript (`<details>`); un script mínimo solo lo cierra al tocar un enlace.
 - Imágenes optimizadas a WebP con `astro:assets`.
 
 ## Pendiente del cliente

@@ -59,8 +59,8 @@ const nav = [
           ))}
           <a href="/#reserva" class="btn-oscuro min-h-11 px-5 text-[15px]">Reservar</a>
         </nav>
-        <!-- Menú en celular: sin JavaScript -->
-        <details class="group relative ml-auto md:hidden">
+        <!-- Menú en celular: funciona sin JavaScript; el script de abajo solo lo cierra al navegar -->
+        <details class="group relative ml-auto md:hidden" data-menu>
           <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-full border border-borde-fuerte [&::-webkit-details-marker]:hidden" aria-label="Abrir menú">
             <Icono nombre="menu" size={20} />
           </summary>
@@ -101,5 +101,12 @@ const nav = [
       <span class="text-sm">Desde <strong>{desde}</strong> / noche</span>
       <a href="/#reserva" class="btn-primario min-h-11 px-5 text-[15px]">Reservar</a>
     </div>
+
+    <script>
+      // Los enlaces a secciones de la misma página no recargan, así que el menú quedaría abierto encima del contenido.
+      document.querySelectorAll<HTMLAnchorElement>('[data-menu] a').forEach((enlace) => {
+        enlace.addEventListener('click', () => enlace.closest('details')?.removeAttribute('open'));
+      });
+    </script>
   </body>
 </html>
