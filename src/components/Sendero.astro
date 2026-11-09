@@ -11,8 +11,8 @@ const curvaBase = 'M50,0 C50,70 8,90 8,180 C8,280 92,280 92,380 C92,480 8,480 8,
     class="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible max-md:opacity-60"
     viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false"
   >
-    <path class="sendero-franja" d={curvaBase} fill="none" stroke="#E6EDDC" stroke-width="34" stroke-linecap="round" vector-effect="non-scaling-stroke" />
-    <path d={curvaBase} fill="none" stroke="#C9A86A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.5 11" vector-effect="non-scaling-stroke" />
+    <path class="sendero-franja stroke-franja" d={curvaBase} fill="none" stroke-width="34" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+    <path class="stroke-oro" d={curvaBase} fill="none" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.5 11" vector-effect="non-scaling-stroke" />
   </svg>
   <div class="relative z-10">
     <slot />

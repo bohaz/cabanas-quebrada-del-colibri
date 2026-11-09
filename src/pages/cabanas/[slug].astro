@@ -41,7 +41,7 @@ const varias = cabana.tarifas.length > 1;
       {fotos.length ? fotos.slice(0, 5).map((f, i) => (
         <Image src={f} alt={`Cabaña ${cabana.nombre}, foto ${i + 1}`} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
       )) : [0, 1, 2, 3, 4].map((i) => (
-        <div class={`flex items-center justify-center rounded-2xl bg-[#EFE8DA] text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
+        <div class={`flex items-center justify-center rounded-2xl bg-placeholder text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
       ))}
     </section>
 
@@ -75,7 +75,7 @@ const varias = cabana.tarifas.length > 1;
       </aside>
     </div>
 
-    <a href={`/cabanas/${siguiente.slug}/`} class="mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-[#E3E9DA]">
+    <a href={`/cabanas/${siguiente.slug}/`} class="mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-salvia-hover">
       <span><span class="block text-sm text-suave">Siguiente en el sendero</span><span class="font-display text-[28px] font-semibold">Cabaña {siguiente.nombre}</span></span>
       <Icono nombre="flecha" size={24} />
     </a>
