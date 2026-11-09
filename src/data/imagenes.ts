@@ -23,6 +23,11 @@ import zarapitoCamas from '../assets/cabanas/zarapito/camas.jpg';
 import zarapitoPasillo from '../assets/cabanas/zarapito/pasillo.jpg';
 import zarapitoCocina from '../assets/cabanas/zarapito/cocina.jpg';
 import zarapitoEntrada from '../assets/cabanas/zarapito/entrada.jpg';
+import cometocinoLiving from '../assets/cabanas/cometocino/living.jpg';
+import cometocinoFachada from '../assets/cabanas/cometocino/fachada.jpg';
+import cometocinoTerraza from '../assets/cabanas/cometocino/terraza.jpg';
+import cometocinoDormitorio from '../assets/cabanas/cometocino/dormitorio.jpg';
+import cometocinoCamas from '../assets/cabanas/cometocino/camas.jpg';
 
 /** Ilustración del ave de cada cabaña. Chincol aún no tiene ilustración. */
 export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehue, tagua, zarapito, cometocino };
@@ -52,6 +57,13 @@ export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
     { src: zarapitoPasillo, alt: 'Pasillo con muro de ladrillo y barra de madera con banquetas', pos: '50% 52%' },
     { src: zarapitoCocina, alt: 'Cocina con cocina a gas, lavaplatos, refrigerador y ventana con cortina roja', pos: '50% 55%' },
     { src: zarapitoEntrada, alt: 'Puerta de madera con el letrero Zarapito en una pared de troncos verdes', pos: '50% 40%' },
+  ],
+  cometocino: [
+    { src: cometocinoLiving, alt: 'Living con sofá cama azul, mesa de centro de tronco y muro de ladrillo' },
+    { src: cometocinoFachada, alt: 'Fachada de la cabaña con puerta de madera, escalera de entrada y flores', pos: '36% 55%' },
+    { src: cometocinoTerraza, alt: 'Terraza de madera con mesa y sillas y vista a la quebrada entre los árboles', pos: '50% 60%' },
+    { src: cometocinoDormitorio, alt: 'Dormitorio matrimonial con cielo de madera y ventana con cortinas rojas', pos: '50% 62%' },
+    { src: cometocinoCamas, alt: 'Dormitorio con camarote y cama con cubrecamas rojos', pos: '50% 58%' },
   ],
 };
 
