@@ -18,3 +18,11 @@
 @media (prefers-reduced-motion: no-preference) {
   .entrada { animation: aparecer 600ms var(--ease-suave) var(--retraso, 0ms) both; }
 }
+
+/* ---------- Transición entre páginas ----------
+   Fundido corto del documento completo; los navegadores sin soporte navegan como siempre. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: 300ms; animation-timing-function: var(--ease-suave); }
+}
