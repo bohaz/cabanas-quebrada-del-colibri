@@ -35,11 +35,10 @@
   --color-linea-oscura: #44544A;
   --color-borde-oscuro: #5E6E60;
 
-  /* Avisos, marcadores de foto y sendero */
+  /* Avisos y marcadores de foto */
   --color-aviso-fondo: #FBEDE4;
   --color-aviso-texto: #7A3B17;
   --color-placeholder: #EFE8DA;
-  --color-franja: #E6EDDC;
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Work Sans", system-ui, sans-serif;
