@@ -12,3 +12,9 @@
   }
 }
 @keyframes aparecer { from { opacity: 0; transform: translateY(24px); } }
+
+/* ---------- Entrada escalonada del hero al cargar ----------
+   Cada elemento fija su retraso con `--retraso`; son pocos ms para no demorar el contenido principal. */
+@media (prefers-reduced-motion: no-preference) {
+  .entrada { animation: aparecer 600ms var(--ease-suave) var(--retraso, 0ms) both; }
+}
