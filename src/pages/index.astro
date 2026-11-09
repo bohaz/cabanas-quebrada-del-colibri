@@ -31,10 +31,13 @@ const lugar = [
         </p>
         <a href="#personas" class="btn-primario self-start">Empezar el sendero <Icono nombre="abajo" size={16} /></a>
       </div>
-      <div class="relative flex min-w-0 flex-[1_1_340px] justify-center">
-        <div aria-hidden="true" class="absolute right-0 top-[-24px] aspect-square w-[92%] max-w-[420px] rounded-full border border-oro"></div>
-        <Image src={FOTOS.juegos} alt="Patio con columpios de madera y las cabañas entre los árboles" widths={[440, 860]} sizes="(min-width: 768px) 440px, 90vw" loading="eager" fetchpriority="high" class="relative aspect-[4/5] w-full max-w-[440px] rounded-[220px_220px_18px_18px] object-cover" />
-        {AVES.loica && <Image src={AVES.loica} alt="" width={260} class="absolute bottom-[-30px] left-0 w-[110px] md:w-[130px]" />}
+      <div class="flex min-w-0 flex-[1_1_340px] justify-center">
+        <!-- El círculo y el ave se anclan a la foto, no al contenedor, para que no se separen en anchos intermedios -->
+        <div class="relative w-full max-w-[440px]">
+          <div aria-hidden="true" class="absolute right-0 top-[-24px] aspect-square w-[92%] rounded-full border border-oro md:-right-9 md:w-[95%]"></div>
+          <Image src={FOTOS.juegos} alt="Patio con columpios de madera y las cabañas entre los árboles" widths={[440, 860]} sizes="(min-width: 768px) 440px, 90vw" loading="eager" fetchpriority="high" class="relative aspect-[4/5] w-full rounded-[220px_220px_18px_18px] object-cover" />
+          {AVES.loica && <Image src={AVES.loica} alt="" width={260} class="absolute bottom-[-30px] left-0 w-[110px] md:-left-12 md:w-[130px]" />}
+        </div>
       </div>
     </section>
 
