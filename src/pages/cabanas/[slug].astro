@@ -58,7 +58,7 @@ const varias = cabana.tarifas.length > 1;
         <h2 id="t-valores" class="font-display text-[30px] font-semibold leading-tight">Valores por noche</h2>
         <p class="-mt-2 text-sm text-suave">{NEGOCIO.temporada}</p>
         <table class="w-full text-[15px]">
-          <thead class="sr-only"><tr><th>Personas</th><th>Desde 2 noches</th><th>Una noche</th></tr></thead>
+          <thead class="sr-only"><tr>{varias && <th>Personas</th>}<th>Desde 2 noches</th><th>Una noche</th></tr></thead>
           <tbody>
             {cabana.tarifas.map((t) => (
               <tr class="border-b border-borde">
