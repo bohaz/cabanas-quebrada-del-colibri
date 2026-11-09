@@ -5,8 +5,9 @@ import { NEGOCIO } from '../data/negocio';
 import { FOTOS } from '../data/imagenes';
 import { formatoPesos } from '../lib/reserva';
 
+// `encuadre`: object-position por foto, para que el recorte 4:3 no corte lo importante.
 const espacios = [
-  { foto: FOTOS.piscina, alt: 'Piscina entre árboles con colibríes de madera colgando sobre un macetero', titulo: 'Piscina', texto: 'Al aire libre, rodeada de árboles y con reposeras para la tarde.' },
+  { foto: FOTOS.piscina, encuadre: 'object-[50%_70%]', alt: 'Piscina entre árboles con colibríes de madera colgando sobre un macetero', titulo: 'Piscina', texto: 'Al aire libre, rodeada de árboles y con reposeras para la tarde.' },
   { foto: FOTOS.quincho, alt: 'Quincho de madera con parrilla de ladrillo y horno de barro', titulo: 'Quincho', texto: `Parrilla, horno de barro y mesa para el grupo. Se usa ${NEGOCIO.quincho.horario} con reserva previa, por ${formatoPesos(NEGOCIO.quincho.valor)}.` },
   { foto: FOTOS.juegos, alt: 'Columpios de madera en el patio con las cabañas al fondo', titulo: 'Juegos infantiles', texto: 'Columpios, resbalín, sube y baja, trepa, puentecito colgante y casita.' },
 ];
@@ -18,7 +19,7 @@ const espacios = [
     <div class="mt-14 flex flex-col gap-16">
       {espacios.map((e, i) => (
         <section class={`flex flex-wrap items-center gap-x-14 gap-y-6 ${i % 2 ? 'md:flex-row-reverse' : ''}`}>
-          <Image src={e.foto} alt={e.alt} widths={[500, 900]} sizes="(min-width: 768px) 55vw, 100vw" class={`aspect-[5/4] min-w-0 flex-[1_1_440px] object-cover ${i % 2 ? 'rounded-[32px_32px_200px_200px]' : 'rounded-[200px_200px_32px_32px]'}`} />
+          <Image src={e.foto} alt={e.alt} widths={[500, 900]} sizes="(min-width: 768px) 55vw, 100vw" class={`aspect-[4/3] min-w-0 flex-[1_1_440px] rounded-2xl object-cover ${e.encuadre ?? ''}`} />
           <div class="min-w-0 flex-[1_1_320px]">
             <h2 class="titulo mb-3">{e.titulo}</h2>
             <p class="text-lg text-texto">{e.texto}</p>
