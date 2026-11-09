@@ -75,8 +75,10 @@ const lugar = [
       <h2 id="t-lugar" class="titulo mb-7">Lo que comparten todas</h2>
       <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
         {lugar.map((l) => (
-          <figure class="flex flex-col gap-3">
-            <Image src={l.foto} alt={l.alt} widths={[400, 800]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[4/3] w-full rounded-[14px] object-cover" />
+          <figure class="group flex flex-col gap-3">
+            <div class="overflow-hidden rounded-[14px]">
+              <Image src={l.foto} alt={l.alt} widths={[400, 800]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[4/3] w-full object-cover transition-transform duration-500 ease-suave motion-safe:group-hover:scale-[1.03]" />
+            </div>
             <figcaption>
               <strong class="font-display text-2xl font-semibold">{l.titulo}</strong><br />
               <span class="text-sm text-texto">{l.texto}</span>
