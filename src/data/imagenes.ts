@@ -8,12 +8,40 @@ import piscina from '../assets/fotos/piscina.jpg';
 import juegos from '../assets/fotos/juegos.jpg';
 import quincho from '../assets/fotos/quincho.jpg';
 import logo from '../assets/logo.png';
+import queltehueDormitorio from '../assets/cabanas/queltehue/dormitorio.jpg';
+import queltehueCocina from '../assets/cabanas/queltehue/cocina.jpg';
+import queltehueEntrada from '../assets/cabanas/queltehue/entrada.jpg';
+import queltehueTerraza from '../assets/cabanas/queltehue/terraza.jpg';
+import queltehueBano from '../assets/cabanas/queltehue/bano.jpg';
+import taguaDormitorio from '../assets/cabanas/tagua/dormitorio.jpg';
+import taguaCamarote from '../assets/cabanas/tagua/camarote.jpg';
+import taguaCocina from '../assets/cabanas/tagua/cocina.jpg';
+import taguaBarra from '../assets/cabanas/tagua/barra.jpg';
+import taguaEntrada from '../assets/cabanas/tagua/entrada.jpg';
 
 /** Ilustración del ave de cada cabaña. Chincol aún no tiene ilustración. */
 export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehue, tagua, zarapito, cometocino };
 
-/** Fotos interiores por cabaña. [Pendiente: agregar las fotos de cada cabaña aquí cuando lleguen.] */
-export const FOTOS_CABANA: Record<string, ImageMetadata[]> = {};
+/** `pos` es el object-position CSS que mantiene a la vista lo importante cuando la foto vertical se recorta. */
+export type FotoCabana = { src: ImageMetadata; alt: string; pos?: string };
+
+/** Fotos por cabaña, en orden: la primera es la portada. Las cabañas sin fotos muestran un recuadro de reemplazo. */
+export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
+  queltehue: [
+    { src: queltehueDormitorio, alt: 'Dormitorio matrimonial con cielo de madera y ventanal al balcón' },
+    { src: queltehueCocina, alt: 'Cocina con cubierta de madera, barra con dos banquetas y ventana con cortina roja' },
+    { src: queltehueEntrada, alt: 'Puerta de entrada con el letrero Queltehue y pasillo hacia el dormitorio' },
+    { src: queltehueTerraza, alt: 'Balcón de madera con baranda y vista a los árboles' },
+    { src: queltehueBano, alt: 'Baño con lavamanos, inodoro y cortina de ducha con hojas' },
+  ],
+  tagua: [
+    { src: taguaDormitorio, alt: 'Dormitorio matrimonial con cama, veladores y ventana con cortina roja', pos: '50% 66%' },
+    { src: taguaCamarote, alt: 'Dormitorio con camarote y cubrecamas rojos', pos: '50% 55%' },
+    { src: taguaCocina, alt: 'Cocina con cocina a gas, lavaplatos, refrigerador y ventana con cortina roja', pos: '50% 58%' },
+    { src: taguaBarra, alt: 'Barra de madera con banquetas junto a la cocina y mueble alto blanco', pos: '50% 62%' },
+    { src: taguaEntrada, alt: 'Puerta de madera con el letrero Tagua en una pared de troncos verdes', pos: '50% 40%' },
+  ],
+};
 
 export const FOTOS = { piscina, juegos, quincho };
 export { logo };
