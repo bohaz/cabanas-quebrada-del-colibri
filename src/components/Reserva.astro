@@ -22,7 +22,7 @@ import { formatoPesos } from '../lib/reserva';
       Sumar quincho, {NEGOCIO.quincho.horario} ({formatoPesos(NEGOCIO.quincho.valor)})
     </label>
     <p class="text-[13px] text-suave">Mínimo 2 noches. Una sola noche tiene otro valor y no aplica en fines de semana largos ni festividades.</p>
-    <p class="hidden rounded-xl bg-aviso-fondo px-4 py-3 text-sm text-aviso-texto" data-aviso role="status"></p>
+    <p class="hidden rounded-xl bg-aviso-fondo px-4 py-3 text-sm text-aviso-texto" id="aviso-fechas" data-aviso role="status"></p>
   </form>
 
   <aside aria-label="Resumen de la reserva" class="zona-oscura flex min-w-0 flex-[1_1_320px] flex-col gap-3.5 rounded-2xl bg-tinta p-7 text-crema">
@@ -83,11 +83,16 @@ import { formatoPesos } from '../lib/reserva';
       });
       if (textoCalce) textoCalce.textContent = `Para ${personas} personas les sirven: ${sirven.map((c) => c.nombre).join(', ')}.`;
 
-      if (salida.value && llegada.value && salida.value <= llegada.value) {
-        aviso.textContent = 'La salida tiene que ser después de la llegada.';
-        aviso.classList.remove('hidden');
+      const fechasInvalidas = Boolean(salida.value && llegada.value && salida.value <= llegada.value);
+      if (fechasInvalidas) aviso.textContent = 'La salida tiene que ser después de la llegada.';
+      aviso.classList.toggle('hidden', !fechasInvalidas);
+      // El aviso queda ligado al campo solo mientras hay error, para que el lector no lo lea vacío.
+      if (fechasInvalidas) {
+        salida.setAttribute('aria-invalid', 'true');
+        salida.setAttribute('aria-describedby', aviso.id);
       } else {
-        aviso.classList.add('hidden');
+        salida.removeAttribute('aria-invalid');
+        salida.removeAttribute('aria-describedby');
       }
       if (llegada.value) salida.min = llegada.value;
 
