@@ -9,6 +9,11 @@ import piscina from '../assets/fotos/piscina.jpg';
 import juegos from '../assets/fotos/juegos.jpg';
 import quincho from '../assets/fotos/quincho.jpg';
 import logo from '../assets/logo.png';
+import loicaDormitorio from '../assets/cabanas/loica/dormitorio.jpg';
+import loicaBalcon from '../assets/cabanas/loica/balcon.jpg';
+import loicaBarra from '../assets/cabanas/loica/barra.jpg';
+import loicaEntrada from '../assets/cabanas/loica/entrada.jpg';
+import loicaVista from '../assets/cabanas/loica/vista.jpg';
 import queltehueDormitorio from '../assets/cabanas/queltehue/dormitorio.jpg';
 import queltehueCocina from '../assets/cabanas/queltehue/cocina.jpg';
 import queltehueEntrada from '../assets/cabanas/queltehue/entrada.jpg';
@@ -41,8 +46,15 @@ export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehu
 /** `pos` es el object-position CSS que mantiene a la vista lo importante cuando la foto vertical se recorta. */
 export type FotoCabana = { src: ImageMetadata; alt: string; pos?: string };
 
-/** Fotos por cabaña, en orden: la primera es la portada. Las cabañas sin fotos muestran un recuadro de reemplazo. */
+/** Fotos por cabaña, en orden: la primera es la portada. */
 export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
+  loica: [
+    { src: loicaDormitorio, alt: 'Dormitorio matrimonial con techo de madera y ventanas altas', pos: '50% 60%' },
+    { src: loicaBalcon, alt: 'Dormitorio con televisor y puerta al balcón' },
+    { src: loicaBarra, alt: 'Barra de madera para comer junto a la ventana y la cocina' },
+    { src: loicaEntrada, alt: 'Puerta de madera con el letrero de la Cabaña Loica' },
+    { src: loicaVista, alt: 'Vista desde el balcón hacia el jardín y los pinos' },
+  ],
   queltehue: [
     { src: queltehueDormitorio, alt: 'Dormitorio matrimonial con cielo de madera y ventanal al balcón' },
     { src: queltehueCocina, alt: 'Cocina con cubierta de madera, barra con dos banquetas y ventana con cortina roja' },
