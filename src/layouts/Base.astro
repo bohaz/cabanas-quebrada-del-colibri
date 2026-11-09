@@ -76,28 +76,28 @@ const nav = [
       <slot />
     </main>
 
-    <footer class="bg-tinta pb-24 text-[#E9E4D6] md:pb-0">
+    <footer class="bg-tinta pb-24 text-crema-tenue md:pb-0">
       <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-5 py-10">
         <div class="flex items-center gap-3.5">
           <Image src={logo} alt="" width={56} height={56} class="size-14 rounded-full" />
           <div>
             <p class="font-display text-[21px] font-semibold">{NEGOCIO.nombre}</p>
-            <p class="text-sm text-[#C7C2B2]">{NEGOCIO.localidad} · Registro Sernatur · {NEGOCIO.telefonoVisible}</p>
+            <p class="text-sm text-piedra">{NEGOCIO.localidad} · Registro Sernatur · {NEGOCIO.telefonoVisible}</p>
           </div>
         </div>
         <div class="flex gap-2">
-          <a href={urlWhatsApp()} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="whatsapp" label="WhatsApp" /></a>
-          <a href={NEGOCIO.instagram} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="instagram" label="Instagram" /></a>
-          {NEGOCIO.facebook && <a href={NEGOCIO.facebook} class="flex size-11 items-center justify-center rounded-full border border-[#5E6E60] text-[#E9E4D6] hover:bg-[#3A4B3E]"><Icono nombre="facebook" label="Facebook" /></a>}
+          <a href={urlWhatsApp()} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="whatsapp" label="WhatsApp" /></a>
+          <a href={NEGOCIO.instagram} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="instagram" label="Instagram" /></a>
+          {NEGOCIO.facebook && <a href={NEGOCIO.facebook} class="flex size-11 items-center justify-center rounded-full border border-borde-oscuro text-crema-tenue hover:bg-tinta-claro"><Icono nombre="facebook" label="Facebook" /></a>}
         </div>
       </div>
-      <div class="border-t border-[#44544A]">
-        <p class="mx-auto max-w-6xl px-5 py-3.5 text-[13px] text-[#B9B4A4]">Sitio web por <a href="https://tuplandigital.cl" class="text-[#E9E4D6]">Tu Plan Digital</a></p>
+      <div class="border-t border-linea-oscura">
+        <p class="mx-auto max-w-6xl px-5 py-3.5 text-[13px] text-piedra-oscura">Sitio web por <a href="https://tuplandigital.cl" class="text-crema-tenue">Tu Plan Digital</a></p>
       </div>
     </footer>
 
     <!-- Barra fija de reserva en celular -->
-    <div class="fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-3 rounded-full bg-tinta py-2 pl-5 pr-2 text-[#F1ECDF] shadow-[0_12px_28px_-12px_rgba(43,58,46,0.6)] md:hidden">
+    <div class="fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-3 rounded-full bg-tinta py-2 pl-5 pr-2 text-crema shadow-[0_12px_28px_-12px_rgba(43,58,46,0.6)] md:hidden">
       <span class="text-sm">Desde <strong>{desde}</strong> / noche</span>
       <a href="/#reserva" class="btn-primario min-h-11 px-5 text-[15px]">Reservar</a>
     </div>
