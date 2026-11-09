@@ -55,7 +55,7 @@ const nav = [
         </a>
         <nav aria-label="Principal" class="ml-auto hidden items-center gap-6 text-[15px] font-medium md:flex">
           {nav.map((l) => (
-            <a href={l.href} class="py-2.5 text-tinta no-underline hover:text-terracota" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>
+            <a href={l.href} class="py-2.5 text-tinta no-underline decoration-oro decoration-2 underline-offset-8 hover:text-terracota aria-[current=page]:underline" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>
           ))}
           <a href="/#reserva" class="btn-oscuro min-h-11 px-5 text-[15px]">Reservar</a>
         </nav>
@@ -65,7 +65,7 @@ const nav = [
             <Icono nombre="menu" size={20} />
           </summary>
           <nav aria-label="Principal" class="absolute right-0 top-13 flex w-56 flex-col rounded-2xl border border-borde bg-papel-claro p-2 shadow-lg">
-            {nav.map((l) => <a href={l.href} class="rounded-xl px-4 py-3 text-tinta no-underline hover:bg-arena">{l.texto}</a>)}
+            {nav.map((l) => <a href={l.href} class="rounded-xl px-4 py-3 text-tinta no-underline hover:bg-arena aria-[current=page]:bg-arena aria-[current=page]:font-semibold" aria-current={ruta === l.href ? 'page' : undefined}>{l.texto}</a>)}
             <a href="/#reserva" class="rounded-xl px-4 py-3 font-semibold text-terracota no-underline hover:bg-arena">Reservar</a>
           </nav>
         </details>
