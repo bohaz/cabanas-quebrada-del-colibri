@@ -18,7 +18,7 @@ const varias = cabana.tarifas.length > 1;
 >
   {foto ? (
     <div class="overflow-hidden rounded-xl">
-      <Image src={foto} alt={`Cabaña ${cabana.nombre}`} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/10] w-full object-cover transition-transform duration-500 ease-suave motion-safe:group-hover/ficha:scale-[1.03]" />
+      <Image src={foto.src} alt={foto.alt} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/10] w-full object-cover transition-transform duration-500 ease-suave motion-safe:group-hover/ficha:scale-[1.03]" />
     </div>
   ) : (
     <div class="flex aspect-[16/10] items-center justify-center rounded-xl bg-placeholder text-[13px] text-suave">Foto de la cabaña</div>

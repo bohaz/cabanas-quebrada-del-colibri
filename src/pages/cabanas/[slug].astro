@@ -39,7 +39,7 @@ const varias = cabana.tarifas.length > 1;
     <!-- Galería: se llena con las fotos de cada cabaña -->
     <section aria-label="Fotos" class="aparece mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
       {fotos.length ? fotos.slice(0, 5).map((f, i) => (
-        <Image src={f} alt={`Cabaña ${cabana.nombre}, foto ${i + 1}`} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
+        <Image src={f.src} alt={f.alt} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
       )) : [0, 1, 2, 3, 4].map((i) => (
         <div class={`flex items-center justify-center rounded-2xl bg-placeholder text-[13px] text-suave ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>Foto {i + 1}</div>
       ))}
