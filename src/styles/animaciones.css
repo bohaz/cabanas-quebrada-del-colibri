@@ -9,6 +9,8 @@
   @media (prefers-reduced-motion: no-preference) {
     .aparece { animation: aparecer linear both; animation-timing-function: var(--ease-suave); }
     html .aparece { animation-timeline: view(); animation-range: entry 0% entry 160px; }
+    /* Al llegar con teclado, el elemento enfocado puede quedar en el borde inferior: se muestra completo. */
+    html .aparece:focus-within { animation: none; }
   }
 }
 @keyframes aparecer { from { opacity: 0; transform: translateY(24px); } }
