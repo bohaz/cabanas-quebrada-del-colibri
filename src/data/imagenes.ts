@@ -18,6 +18,11 @@ import taguaCamarote from '../assets/cabanas/tagua/camarote.jpg';
 import taguaCocina from '../assets/cabanas/tagua/cocina.jpg';
 import taguaBarra from '../assets/cabanas/tagua/barra.jpg';
 import taguaEntrada from '../assets/cabanas/tagua/entrada.jpg';
+import zarapitoDormitorio from '../assets/cabanas/zarapito/dormitorio.jpg';
+import zarapitoCamas from '../assets/cabanas/zarapito/camas.jpg';
+import zarapitoPasillo from '../assets/cabanas/zarapito/pasillo.jpg';
+import zarapitoCocina from '../assets/cabanas/zarapito/cocina.jpg';
+import zarapitoEntrada from '../assets/cabanas/zarapito/entrada.jpg';
 
 /** Ilustración del ave de cada cabaña. Chincol aún no tiene ilustración. */
 export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehue, tagua, zarapito, cometocino };
@@ -40,6 +45,13 @@ export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
     { src: taguaCocina, alt: 'Cocina con cocina a gas, lavaplatos, refrigerador y ventana con cortina roja', pos: '50% 58%' },
     { src: taguaBarra, alt: 'Barra de madera con banquetas junto a la cocina y mueble alto blanco', pos: '50% 62%' },
     { src: taguaEntrada, alt: 'Puerta de madera con el letrero Tagua en una pared de troncos verdes', pos: '50% 40%' },
+  ],
+  zarapito: [
+    { src: zarapitoDormitorio, alt: 'Dormitorio matrimonial con cabecera oscura, veladores y ventana con cortina roja', pos: '50% 66%' },
+    { src: zarapitoCamas, alt: 'Dormitorio con una cama y un camarote con cubrecamas azules', pos: '50% 62%' },
+    { src: zarapitoPasillo, alt: 'Pasillo con muro de ladrillo y barra de madera con banquetas', pos: '50% 52%' },
+    { src: zarapitoCocina, alt: 'Cocina con cocina a gas, lavaplatos, refrigerador y ventana con cortina roja', pos: '50% 55%' },
+    { src: zarapitoEntrada, alt: 'Puerta de madera con el letrero Zarapito en una pared de troncos verdes', pos: '50% 40%' },
   ],
 };
 
