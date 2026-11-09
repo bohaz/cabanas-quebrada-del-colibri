@@ -47,7 +47,7 @@ const lugar = [
         <fieldset class="flex flex-wrap gap-2.5">
           <legend class="sr-only">Cantidad de personas</legend>
           {personas.map((n) => (
-            <label class="inline-flex min-h-[46px] cursor-pointer items-center rounded-full border border-borde-fuerte bg-papel-claro px-5 text-[15px] font-medium transition-colors hover:border-tinta has-checked:border-tinta has-checked:bg-tinta has-checked:text-papel has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-colibri">
+            <label class="inline-flex min-h-[46px] cursor-pointer items-center rounded-full border border-borde-control bg-papel-claro px-5 text-[15px] font-medium transition-colors hover:border-tinta has-checked:border-tinta has-checked:bg-tinta has-checked:text-papel has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-colibri">
               <input type="radio" name="personas" value={n} form="form-reserva" class="sr-only" checked={n === personasInicial} />
               {n} personas
             </label>

@@ -7,6 +7,8 @@
   --color-arena: #F3EEE3;
   --color-borde: #E4DCCB;
   --color-borde-fuerte: #D6CCB6;
+  /* Borde de campos y opciones: 3:1 sobre papel y blanco (WCAG 1.4.11). */
+  --color-borde-control: #8F8672;
   --color-tinta: #2B3A2E;
   --color-texto: #4A5A4C;
   --color-suave: #6B6B5E;
