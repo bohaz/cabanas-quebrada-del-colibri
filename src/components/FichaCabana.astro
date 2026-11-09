@@ -43,7 +43,8 @@ const varias = cabana.tarifas.length > 1;
       <input type="radio" name="cabana" value={cabana.slug} form="form-reserva" class="sr-only" />
       <span class="group-has-checked/ficha:hidden">Elegir esta</span>
       <span class="hidden group-has-checked/ficha:inline">Elegida</span>
+      <span class="sr-only">: Cabaña {cabana.nombre}</span>
     </label>
-    <a href={`/cabanas/${cabana.slug}/`} class="enlace px-1 py-2.5 text-sm">Ver cabaña</a>
+    <a href={`/cabanas/${cabana.slug}/`} class="enlace px-1 py-2.5 text-sm">Ver cabaña<span class="sr-only"> {cabana.nombre}</span></a>
   </div>
 </article>
