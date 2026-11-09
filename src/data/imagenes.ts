@@ -4,6 +4,7 @@ import queltehue from '../assets/aves/queltehue.png';
 import tagua from '../assets/aves/tagua.png';
 import zarapito from '../assets/aves/zarapito.png';
 import cometocino from '../assets/aves/cometocino.png';
+import chincol from '../assets/aves/chincol.png';
 import piscina from '../assets/fotos/piscina.jpg';
 import juegos from '../assets/fotos/juegos.jpg';
 import quincho from '../assets/fotos/quincho.jpg';
@@ -28,9 +29,14 @@ import cometocinoFachada from '../assets/cabanas/cometocino/fachada.jpg';
 import cometocinoTerraza from '../assets/cabanas/cometocino/terraza.jpg';
 import cometocinoDormitorio from '../assets/cabanas/cometocino/dormitorio.jpg';
 import cometocinoCamas from '../assets/cabanas/cometocino/camas.jpg';
+import chincolLiving from '../assets/cabanas/chincol/living.jpg';
+import chincolFachada from '../assets/cabanas/chincol/fachada.jpg';
+import chincolTerraza from '../assets/cabanas/chincol/terraza.jpg';
+import chincolDormitorio from '../assets/cabanas/chincol/dormitorio.jpg';
+import chincolCamas from '../assets/cabanas/chincol/camas.jpg';
 
-/** Ilustración del ave de cada cabaña. Chincol aún no tiene ilustración. */
-export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehue, tagua, zarapito, cometocino };
+/** Ilustración del ave de cada cabaña. */
+export const AVES: Record<string, ImageMetadata | undefined> = { loica, queltehue, tagua, zarapito, cometocino, chincol };
 
 /** `pos` es el object-position CSS que mantiene a la vista lo importante cuando la foto vertical se recorta. */
 export type FotoCabana = { src: ImageMetadata; alt: string; pos?: string };
@@ -64,6 +70,13 @@ export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
     { src: cometocinoTerraza, alt: 'Terraza de madera con mesa y sillas y vista a la quebrada entre los árboles', pos: '50% 60%' },
     { src: cometocinoDormitorio, alt: 'Dormitorio matrimonial con cielo de madera y ventana con cortinas rojas', pos: '50% 62%' },
     { src: cometocinoCamas, alt: 'Dormitorio con camarote y cama con cubrecamas rojos', pos: '50% 58%' },
+  ],
+  chincol: [
+    { src: chincolLiving, alt: 'Living con sofá cama oscuro, mesa de centro de tronco y cielo de madera' },
+    { src: chincolFachada, alt: 'Fachada verde de la cabaña con puerta de madera, escalera de entrada y flores', pos: '36% 55%' },
+    { src: chincolTerraza, alt: 'Terraza de madera con mesa y sillas y vista a la quebrada', pos: '50% 60%' },
+    { src: chincolDormitorio, alt: 'Dormitorio matrimonial con cabecera oscura, muro de ladrillo y cortina roja', pos: '50% 62%' },
+    { src: chincolCamas, alt: 'Dormitorio con camarote y cama con cubrecamas azules', pos: '50% 58%' },
   ],
 };
 
