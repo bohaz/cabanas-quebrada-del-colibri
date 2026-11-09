@@ -46,8 +46,11 @@
 @layer base {
   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body { @apply bg-papel text-tinta font-sans antialiased; }
-  :focus-visible { outline: 2px solid var(--color-colibri); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--foco, var(--color-colibri)); outline-offset: 3px; }
 }
+
+/* El colibrí no alcanza 3:1 sobre tinta: en zonas oscuras el foco pasa a crema. */
+@utility zona-oscura { --foco: var(--color-crema); }
 
 @utility kicker { @apply flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-terracota-oscuro; }
 @utility hito { @apply inline-flex size-[30px] flex-none items-center justify-center rounded-full border-[1.5px] border-oro bg-papel font-display text-[17px] font-semibold tracking-normal text-terracota-oscuro; }
