@@ -8,6 +8,7 @@ import chincol from '../assets/aves/chincol.png';
 import piscina from '../assets/fotos/piscina.jpg';
 import juegos from '../assets/fotos/juegos.jpg';
 import quincho from '../assets/fotos/quincho.jpg';
+import tinaja from '../assets/fotos/tinaja.jpg';
 import logo from '../assets/logo.png';
 import loicaDormitorio from '../assets/cabanas/loica/dormitorio.jpg';
 import loicaBalcon from '../assets/cabanas/loica/balcon.jpg';
@@ -92,5 +93,5 @@ export const FOTOS_CABANA: Record<string, FotoCabana[]> = {
   ],
 };
 
-export const FOTOS = { piscina, juegos, quincho };
+export const FOTOS = { piscina, juegos, quincho, tinaja };
 export { logo };

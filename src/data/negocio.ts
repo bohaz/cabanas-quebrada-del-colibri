@@ -12,6 +12,13 @@ export const NEGOCIO = {
   facebook: '', // [Pendiente: enlace de la página de Facebook]
   temporada: 'Temporada baja 2026',
   quincho: { valor: 20000, horario: 'de 12:00 a 22:00' },
+  /** Tinaja de agua caliente: valor por 1 hora. Sobre 4 personas se suma `adicional` por persona, hasta `maximo`. */
+  tinaja: {
+    valores: [{ personas: 2, valor: 25000 }, { personas: 4, valor: 40000 }],
+    adicional: 5000,
+    maximo: 7,
+    horario: 'de 15:00 a 21:00',
+  },
   cercanias: ['Casa Museo Pablo Neruda', 'Playa Las Ágatas', 'Playa del Poeta', 'Quebrada de Córdova'],
 } as const;
 
