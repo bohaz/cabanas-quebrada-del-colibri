@@ -37,7 +37,7 @@ const varias = cabana.tarifas.length > 1;
     </section>
 
     <!-- Galería: se llena con las fotos de cada cabaña -->
-    <section aria-label="Fotos" class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
+    <section aria-label="Fotos" class="aparece mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2">
       {fotos.length ? fotos.slice(0, 5).map((f, i) => (
         <Image src={f} alt={`Cabaña ${cabana.nombre}, foto ${i + 1}`} widths={[400, 900]} sizes={i === 0 ? '(min-width: 768px) 50vw, 100vw' : '25vw'} class={`h-full w-full rounded-2xl object-cover ${i === 0 ? 'col-span-2 aspect-[4/3] md:row-span-2' : 'aspect-square'}`} />
       )) : [0, 1, 2, 3, 4].map((i) => (
@@ -45,7 +45,7 @@ const varias = cabana.tarifas.length > 1;
       ))}
     </section>
 
-    <div class="mt-14 flex flex-wrap gap-10">
+    <div class="aparece mt-14 flex flex-wrap gap-10">
       <section aria-labelledby="t-incluye" class="min-w-0 flex-[1_1_380px]">
         <h2 id="t-incluye" class="titulo mb-5 text-[34px] md:text-[38px]">Lo que tiene</h2>
         <ul class="grid gap-x-8 sm:grid-cols-2">
@@ -75,7 +75,7 @@ const varias = cabana.tarifas.length > 1;
       </aside>
     </div>
 
-    <a href={`/cabanas/${siguiente.slug}/`} class="mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-salvia-hover">
+    <a href={`/cabanas/${siguiente.slug}/`} class="aparece mt-16 flex items-center justify-between gap-4 rounded-2xl bg-salvia-claro px-7 py-6 text-tinta no-underline hover:bg-salvia-hover">
       <span><span class="block text-sm text-suave">Siguiente en el sendero</span><span class="font-display text-[28px] font-semibold">Cabaña {siguiente.nombre}</span></span>
       <Icono nombre="flecha" size={24} />
     </a>

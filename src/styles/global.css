@@ -40,6 +40,9 @@
   --color-aviso-texto: #7A3B17;
   --color-placeholder: #EFE8DA;
 
+  /* Curva de todas las animaciones: arranca rápido y frena suave. */
+  --ease-suave: cubic-bezier(0.22, 1, 0.36, 1);
+
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Work Sans", system-ui, sans-serif;
 }

@@ -18,7 +18,7 @@ const espacios = [
     <h1 class="font-display text-[48px] font-medium leading-[1.05] md:text-[60px]">Lo que comparten todas las cabañas</h1>
     <div class="mt-14 flex flex-col gap-16">
       {espacios.map((e, i) => (
-        <section class={`flex flex-wrap items-center gap-x-14 gap-y-6 ${i % 2 ? 'md:flex-row-reverse' : ''}`}>
+        <section class={`aparece flex flex-wrap items-center gap-x-14 gap-y-6 ${i % 2 ? 'md:flex-row-reverse' : ''}`}>
           <Image src={e.foto} alt={e.alt} widths={[500, 900]} sizes="(min-width: 768px) 55vw, 100vw" class={`aspect-[4/3] min-w-0 flex-[1_1_440px] rounded-2xl object-cover ${e.encuadre ?? ''}`} />
           <div class="min-w-0 flex-[1_1_320px]">
             <h2 class="titulo mb-3">{e.titulo}</h2>
@@ -27,7 +27,7 @@ const espacios = [
         </section>
       ))}
     </div>
-    <section aria-labelledby="t-galeria" class="mt-20">
+    <section aria-labelledby="t-galeria" class="aparece mt-20">
       <h2 id="t-galeria" class="titulo mb-6">Galería</h2>
       <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => (
