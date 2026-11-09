@@ -60,7 +60,7 @@
 @utility kicker { @apply flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-terracota-oscuro; }
 @utility hito { @apply inline-flex size-[30px] flex-none items-center justify-center rounded-full border-[1.5px] border-oro bg-papel font-display text-[17px] font-semibold tracking-normal text-terracota-oscuro; }
 @utility titulo { @apply font-display font-medium leading-[1.08] text-[38px] md:text-[46px]; }
-@utility btn { @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 font-semibold no-underline transition-colors; }
+@utility btn { @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full px-6 font-semibold no-underline transition-[color,background-color,border-color,translate] duration-300 ease-suave motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0; }
 @utility btn-primario { @apply btn bg-terracota text-white hover:bg-terracota-hover; }
 @utility btn-oscuro { @apply btn bg-tinta text-papel hover:bg-tinta-hover; }
 @utility btn-borde { @apply btn border border-tinta text-tinta hover:bg-tinta hover:text-papel; }
