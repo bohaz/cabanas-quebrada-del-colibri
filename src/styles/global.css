@@ -46,7 +46,10 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html { scroll-padding-top: 88px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  /* Deja espacio para la barra fija de reserva, para que no tape el elemento enfocado. */
+  @media (width < 48rem) { html { scroll-padding-bottom: 96px; } }
   body { @apply bg-papel text-tinta font-sans antialiased; }
   :focus-visible { outline: 2px solid var(--foco, var(--color-colibri)); outline-offset: 3px; }
 }
